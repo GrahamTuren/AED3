@@ -11,8 +11,9 @@ public:
 	celula(){
 		proxima = NULL;
 	}
-	celula(string n){
+	celula(string n, celula *p){
 		nome = n;
+		proxima = p;
 	}
 	string getNome(){
 		return nome;
@@ -21,13 +22,14 @@ public:
 		nome = n;
 	}
 	
+	void setProxima(celula * p){
+		proxima = p;
+	}
+	
 	celula * getProxima(){
 		return proxima;
 	}
 	
-	void setProxima(celula * l){
-		proxima = l;
-	}
 };
 
 
@@ -45,15 +47,14 @@ public:
 	}
 	
 	void inserirInicio(string n){
-		celula *nova = new celula;
-		nova->setNome(n);
-		nova->setProxima(inicio);
+		celula *nova = new celula(n, inicio);
+		//nova->setNome(n);
+		//nova->setProxima(inicio);
 		inicio = nova;
 	}
-	
 	void inserirFim(string n){
-		celula *nova = new celula(n);
-		nova->setProxima(NULL);
+		celula *nova = new celula(n, NULL);
+		//nova->setProxima(NULL);
 		if(inicio != NULL)
 		{			
 			celula *aux = inicio;
