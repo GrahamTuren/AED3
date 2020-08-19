@@ -1,12 +1,13 @@
 #include <iostream>
+#include <locale.h>
 
 using namespace std;
 
 class celula
 {
 private:
-	string nome;
-	float mediaFinal;
+	string nome, sexo, bebe;
+	int idade;
 	celula * proxima;
 public:
 	celula()
@@ -17,14 +18,16 @@ public:
 	{
 		nome = n;
 	}
-	celula(string n, celula *p)
+celula(string n, celula *p)
 	{
 		nome = n;
 		proxima = p;
 	}
-	celula(string n, float m, celula *p){
+	celula(string n, string s, int i, string b, celula *p){
 		nome = n;
-		mediaFinal = m;
+		sexo = s;
+		idade = i;
+		bebe = b;
 		proxima = p;
 	}
 	string getNome()
@@ -35,6 +38,33 @@ public:
 	{
 		nome = n;
 	}
+	
+	string getSexo()
+	{
+		return sexo;
+	}
+	void setSexo(string s)
+	{
+		sexo = s;
+	}
+	
+	int getIdade()
+	{
+		return idade;
+	}
+	void setIdade(int i)
+	{
+		idade = i;
+	}
+	
+	string getBebe()
+	{
+		return bebe;
+	}
+	void setBebe(string b)
+	{
+		bebe = b;
+	}
 
 	celula * getProxima()
 	{
@@ -44,12 +74,6 @@ public:
 	void setProxima(celula * l)
 	{
 		proxima = l;
-	}
-	float getMediaFinal(){
-		return mediaFinal;
-	}
-	void setMediaFinal(float m){
-		mediaFinal = m;
 	}
 };
 
@@ -76,20 +100,22 @@ public:
 		return inicio;
 	}
 
-	void inserirInicio(string n, float m)
+	void inserirInicio(string n, string s, int i, string b)
 	{
 		celula *nova = new celula;
 		nova->setNome(n);
+		nova->setSexo(s);
+		nova->setIdade(i);
+		nova->setBebe(b);
 		nova->setProxima(inicio);
-		nova->setMediaFinal(m);
 		inicio = nova;
 	}
 
-	void inserirFim(string n, float m)
+	void inserirFim(string n, string s, int i, string b)
 	{
 		if(inicio == NULL)
 		{
-			inserirInicio(n, m);
+			inserirInicio(n, s, i, b);
 		}
 		else
 		{
@@ -98,7 +124,7 @@ public:
 			{
 				aux = aux->getProxima();
 			}
-			celula *nova = new celula(n, m, NULL);
+			celula *nova = new celula(n, s, i, b, NULL);
 			aux->setProxima(nova); 
 		}
 	}
@@ -113,9 +139,10 @@ public:
 		else
 		{
 			celula *aux = inicio;
+			cout << "Lista do Churrasco de Domingo\n\n";
 			while(aux != NULL)
 			{
-				cout << aux->getNome() << " - " << aux->getMediaFinal() << endl;
+				cout << "Nome: " <<aux->getNome() << "\n" << "Sexo: " << aux->getSexo() << " \n" << "Idade: " << aux->getIdade() << "\n" << "Bebe: " << aux->getBebe() << "\n" << "----------------------------------------" <<endl;
 				aux = aux->getProxima();
 			}
 		}
@@ -134,10 +161,15 @@ public:
 
 int main()
 {
-	lista listaAlunos;
-	listaAlunos.inserirInicio("Miguel", 9.5);
-	listaAlunos.inserirFim("Jorge", 10);
-	listaAlunos.inserirFim("Ana", 9.8);
-	listaAlunos.imprimir();
+	setlocale(LC_ALL, "portuguese");
+	
+	lista listaConvidados;
+	listaConvidados.inserirInicio("Esteban", "Masculino", 28, "Não");
+	listaConvidados.inserirFim("Henrico",  "Masculino", 28, "Sim");
+	listaConvidados.inserirFim("Lola", "Feminino", 28, "Sim");
+	listaConvidados.inserirFim("Rubi", "Feminino", 28, "Não");
+	listaConvidados.imprimir();	
+	/*i=i*2*5/i-7;*/
+	
 	return 0;
 }
